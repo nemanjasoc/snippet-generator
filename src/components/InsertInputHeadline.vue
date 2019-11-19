@@ -12,17 +12,29 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
       insertedHeadline: ''
     }
   },
+  computed: {
+    ...mapGetters([
+      'currentSnippet'
+    ])
+  },
   methods: {
     toSelectFont() {
       this.$store.commit('setCurrentSnippetsHeadline', this.insertedHeadline);
       this.$router.push({name: 'SelectFont'})
     }
+  },
+  mounted() {
+    if (this.currentSnippet.headline) {
+      this.insertedHeadline = this.currentSnippet.headline;
+    } 
   }
 }
 </script>
@@ -110,11 +122,23 @@ input[type=text] {
 
 .prev-button {
   @include prev-button-style;
-  background-color: $delete-prev-button-color;
+  background-color: $prev-button-color;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 
 .next-button {
-  @include prev-button-style;
+  @include next-button-style;
   background-color: $next-button-color;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 </style>

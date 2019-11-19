@@ -1,8 +1,8 @@
 const state = {
     templatesObj: {
-        input: `<h3 style="color:[color]">[headline]</h3><input type="text" style="font-family:[font]; max-width:260px; width:100%; height:22px; padding:3px 5px;"/>`,
-        textarea: `<h3 style="color:[color]">[headline]</h3><textarea style="font-family:[font]; max-width:260px; width:100%; height:42px; padding: 3px 5px;"></textarea>`,
-        checkbox: `<h3 style="color:[color]">[headline]</h3><input type="checkbox" style="font-family:[font];"/>`
+        input: `<h3 style="color:[color]; font-family:[font];">[headline]</h3><input type="text" style="font-family:[font]; max-width:260px; width:100%; height:22px; padding:3px 5px;"/>`,
+        textarea: `<h3 style="color:[color]; font-family:[font];">[headline]</h3><textarea style="font-family:[font]; max-width:260px; width:100%; height:42px; padding: 3px 5px;"></textarea>`,
+        checkbox: `<h3 style="color:[color]; font-family:[font];">[headline]</h3><input type="checkbox" style="font-family:[font];"/>`
     }, 
     snippets: [
         {
@@ -15,17 +15,17 @@ const state = {
             type: 'textarea',
             color: 'blue',
             headline: 'Textarea',
-            font: 'Helvetica'
+            font: 'Times'
         },
         {
             type: 'checkbox',
             color: 'green',
             headline: 'Checkbox',
-            font: 'sans-serif'
+            font: 'Courier'
         }
     ],
     colors: ['red', 'blue', 'green', 'yellow', 'purple', 'black'],
-    fonts: ['Arial', 'Helvetica', 'sans-serif', 'Verdana', 'Courier'], 
+    fonts: ['Arial', 'Helvetica', 'sans-serif', 'Verdana', 'Courier', 'Times'], 
     currentSnippet: {
         type: '',
         color: '',

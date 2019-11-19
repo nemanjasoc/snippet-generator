@@ -25,7 +25,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'colors'
+      'colors',
+      'currentSnippet'
     ])
   },
   methods: {
@@ -33,6 +34,11 @@ export default {
       this.$store.commit('setCurrentSnippetsColor', this.selectedColor);
       this.$router.push({name: 'InsertInputHeadline'});
     }
+  },
+  mounted() {
+    if (this.currentSnippet.color) {
+      this.selectedColor = this.currentSnippet.color;
+    } 
   }
 }
 </script>
@@ -77,11 +83,23 @@ select {
 
 .prev-button {
   @include prev-button-style;
-  background-color: #2ECC40;
+  background-color: #3D9970;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 
 .next-button {
-  @include prev-button-style;
+  @include next-button-style;
   background-color: #B10DC9;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 </style>

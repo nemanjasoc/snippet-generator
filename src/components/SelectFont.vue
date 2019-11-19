@@ -25,7 +25,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'fonts'
+      'fonts',
+      'currentSnippet'
     ])
   },
   methods: {
@@ -33,6 +34,11 @@ export default {
       this.$store.commit('setCurrentSnippetsFont', this.selectedFont);
       this.$router.push({name: 'Preview'});
     }
+  },
+  mounted() {
+    if (this.currentSnippet.font) {
+      this.selectedFont = this.currentSnippet.font;
+    } 
   }
 }
 </script>
@@ -77,11 +83,23 @@ select {
 
 .prev-button {
   @include prev-button-style;
-  background-color: $delete-prev-button-color;
+  background-color: $prev-button-color;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 
 .preview-button {
   @include next-button-style;
   background-color: $next-button-color;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 </style>

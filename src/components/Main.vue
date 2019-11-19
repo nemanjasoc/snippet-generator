@@ -20,7 +20,7 @@
           <li v-for="snippet in snippets">
             <div v-html="generateHtml(snippet)"></div>
             <button class="delete-button" @click="deleteSnippet(snippet)">Delete</button>
-            <button class="copy-code" v-clipboard="snippet">Copy code to clipboard</button>
+            <button class="copy-code" @click="copyToClipboard()" v-clipboard="generateHtml(snippet)">Copy code to clipboard</button>
           </li>
         </ul>
       </aside>
@@ -45,15 +45,20 @@ export default {
       .replace('[headline]', snippet.headline)
     },
     deleteSnippet(snippet) {
-      var newSnippets = [];
-      for (var i = 0; i < this.snippets.length; i++) {
-        var current = this.snippets[i];
-        if (current !== snippet) {
-          newSnippets.push(current)
+      var confirmMessage = confirm("Are you sure you want to delete this snippet?");
+      if (confirmMessage) {
+        var newSnippets = [];
+        for (var i = 0; i < this.snippets.length; i++) {
+          var current = this.snippets[i];
+          if (current !== snippet) {
+            newSnippets.push(current)
+          }
         }
+        this.$store.commit('setNewSnippets', newSnippets);
       }
-
-      this.$store.commit('setNewSnippets', newSnippets);
+    },
+    copyToClipboard() {
+      alert("Code is copied!");
     }
   }
 }
@@ -105,11 +110,10 @@ p {
   border: 3px solid #494949;
   border-radius: 6px;
   display: inline-block;
-  transition: all 0.3s ease 0s;
+  @include transition(all 0.3s ease 0s);
 
   &:hover {
     border-radius: 50px;
-    @include transition(all 0.3s ease 0s);
   }
 }
 
@@ -140,11 +144,17 @@ li {
   width: 100%;
   height: 22px;
   color: white;
-  background-color: $delete-prev-button-color;
+  background-color: $delete-button-color;
   outline: none;
   border: none;
   margin-right: 6px;
   margin-top: 8px;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 
 .copy-code {
@@ -157,5 +167,11 @@ li {
   outline: none;
   border: none;
   margin-top: 8px;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 </style>

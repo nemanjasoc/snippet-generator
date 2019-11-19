@@ -16,7 +16,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -26,7 +25,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'templatesObj'
+      'templatesObj',
+      'currentSnippet'
     ]),
     types() {
       return Object.keys(this.templatesObj)
@@ -37,6 +37,11 @@ export default {
       this.$store.commit('setCurrentSnippetsInputType', this.selectedType);
       this.$router.push({name: 'SelectColors'});
     }
+  },
+  mounted() {
+    if (this.currentSnippet.type) {
+      this.selectedType = this.currentSnippet.type;
+    } 
   }
 }
 </script>
@@ -79,11 +84,23 @@ select {
 
 .prev-button {
   @include prev-button-style;
-  background-color: $delete-prev-button-color;
+  background-color: $prev-button-color;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 
 .next-button {
   @include next-button-style;
   background-color: $next-button-color;
+  border-radius: 50px;
+  @include transition(all 0.3s ease 0s);
+
+  &:hover {
+    border-radius: 6px;
+  }
 }
 </style>
