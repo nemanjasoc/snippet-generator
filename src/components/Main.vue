@@ -40,9 +40,9 @@ export default {
   },
   methods: {
     generateHtml(snippet) {
-      return this.templatesObj[snippet.type].replace('[font]', snippet.font)
+      return this.templatesObj[snippet.type].split('[font]').join(snippet.font)
       .replace('[color]', snippet.color)
-      .replace('[headline]', snippet.headline)
+      .replace('[headline]', snippet.headline);
     },
     deleteSnippet(snippet) {
       var confirmMessage = confirm("Are you sure you want to delete this snippet?");

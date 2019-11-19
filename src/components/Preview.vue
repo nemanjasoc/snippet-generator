@@ -24,9 +24,9 @@ export default {
   },
   methods: {
     generateCurrentSnippetHtml(currentSnippet) {
-      return this.templatesObj[currentSnippet.type].replace('[font]', currentSnippet.font)
+      return this.templatesObj[currentSnippet.type].split('[font]').join(snippet.font)
       .replace('[color]', currentSnippet.color)
-      .replace('[headline]', currentSnippet.headline)
+      .replace('[headline]', currentSnippet.headline);
     },
     toMain() {
       this.$store.commit('setSnippets', Object.assign({}, this.currentSnippet));
