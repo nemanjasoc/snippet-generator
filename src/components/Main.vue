@@ -45,26 +45,41 @@ export default {
       .replace('[headline]', snippet.headline);
     },
     deleteSnippet(snippet) {
-      var confirmMessage = confirm("Are you sure you want to delete this snippet?");
-      if (confirmMessage) {
-        var newSnippets = [];
-        for (var i = 0; i < this.snippets.length; i++) {
-          var current = this.snippets[i];
-          if (current !== snippet) {
-            newSnippets.push(current)
+      var confirmMessage = this.$swal({
+          title: 'Are you sure?',
+          text: 'You can\'t revert your action',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes Delete it!',
+          cancelButtonText: 'No, Keep it!',
+          showCloseButton: true,
+          showLoaderOnConfirm: true
+        }).then((result) => {
+        if(result.value) {
+          this.$swal('Deleted', 'You successfully deleted this file', 'success')
+          if (confirmMessage) {
+            var newSnippets = [];
+            for (var i = 0; i < this.snippets.length; i++) {
+              var current = this.snippets[i];
+              if (current !== snippet) {
+                newSnippets.push(current)
+              }
+            }
+            this.$store.commit('setNewSnippets', newSnippets);
           }
+        } else {
+          this.$swal('Cancelled', 'Your file is still intact', 'info')
         }
-        this.$store.commit('setNewSnippets', newSnippets);
-      }
+      })
     },
     copyToClipboard() {
-      alert("Code is copied!");
+      this.$swal("Code is copied!");
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import 'src/scss/mixins';
 @import 'src/scss/variables';
 
@@ -173,5 +188,13 @@ li {
   &:hover {
     border-radius: 6px;
   }
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: #3D9970;
+}
+
+.swal2-styled.swal2-cancel {
+  background-color: $delete-button-color;
 }
 </style>

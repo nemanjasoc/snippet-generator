@@ -24,14 +24,14 @@ export default {
   },
   methods: {
     generateCurrentSnippetHtml(currentSnippet) {
-      return this.templatesObj[currentSnippet.type].split('[font]').join(snippet.font)
+      return this.templatesObj[currentSnippet.type].split('[font]').join(currentSnippet.font)
       .replace('[color]', currentSnippet.color)
       .replace('[headline]', currentSnippet.headline);
     },
     toMain() {
       this.$store.commit('setSnippets', Object.assign({}, this.currentSnippet));
-      alert('Current snippet is saved!')
-      this.$router.push({name: 'Main'})
+      this.$swal('Current snippet is saved!');
+      this.$router.push({name: 'Main'});
     }
   }
 }
